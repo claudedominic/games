@@ -7,4 +7,4 @@ casino mode
 - https://claudedominic.github.io/games/rps-casino.html
 
 casino mode (mobile)
-- https://claudedominic.github.io/games/rps-casino (mobile).html
+- https://claudedominic.github.io/games/rps-casino(mobile).html
