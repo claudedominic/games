@@ -152,13 +152,10 @@ body{
 .icon-btn.cash:hover:not(:disabled){ background:rgba(255,210,74,0.30); border-color:var(--gold-lit); }
 .icon-btn.cash:disabled{ opacity:.30; cursor:default; box-shadow:none; }
 
-/* ===== 화면 전환 (모바일 3단계) ===== */
+/* ===== 화면 전환 (모바일 2단계 : 베팅 / 게임·결과) ===== */
 .screen{ display:none; flex-direction:column; gap:10px; }
 .screen.active{ display:flex; }
 .screen .next:not(.float){ width:100%; }
-.point-panel{ padding:16px 14px; display:flex; flex-direction:column; gap:10px; }
-.point-panel > .lab{ text-align:center; font-size:13px; }
-.point-panel .mini{ border-top:none; padding-top:0; margin-top:0; }
 
 /* ---- 좌 : 딜러 (사진) ---- */
 .dealer{ padding:0; overflow:hidden; display:flex; flex-direction:column; }
@@ -791,18 +788,6 @@ table.recs td.who .star{ color:var(--gold); margin-right:3px; }
 .dealer[open] .dealer-photo{ border-bottom:2px solid var(--ring,var(--edge)); }
 .dealer[open] .dealer-photo .chev{ transform:translateY(-50%) rotate(180deg); }
 
-/* 포인트 정보 화면 : 다음 딜러 정보를 위에 큼직하게 */
-.dealer.big > summary{ cursor:default; pointer-events:none; }
-.dealer.big .dealer-photo{ height:150px; padding-right:0; }
-.dealer.big .dealer-photo .tier{ top:10px; left:10px; font-size:10px; padding:3px 9px; }
-.dealer.big .dealer-photo .clr{ top:10px; right:10px; gap:4px; }
-.dealer.big .dealer-photo .clr i{ width:11px; height:11px; }
-.dealer.big .dealer-photo .nm{
-  left:14px; right:14px; top:auto; bottom:10px; transform:none;
-  font-size:24px; white-space:normal; overflow:visible; text-overflow:clip;
-}
-.dealer.big .dealer-photo .chev{ display:none; }
-
 @media (max-height:700px){
   .side{ gap:6px; }
   .bet-circle{ width:104px; height:104px; }
@@ -892,6 +877,14 @@ table.recs td.who .star{ color:var(--gold); margin-right:3px; }
         <button class="act allin" id="btnAllin">올인</button>
         <button class="act" id="btnClear">취소</button>
       </div>
+      <div class="mini">
+        <div class="mini-row"><span class="lab">BEST</span><b id="uiBest">—</b></div>
+        <div class="mini-row"><span class="lab">THIS RUN</span><b id="uiRunPeak">1,000</b></div>
+        <div class="recbar" id="uiRecWrap" hidden>
+          <span class="rbar"><i id="uiRecFill"></i></span>
+          <b id="uiRecPct">0%</b>
+        </div>
+      </div>
     </aside>
 
     <button class="next" id="btnConfirmBet">베팅 확정 &nbsp;· &nbsp;다음</button>
@@ -948,25 +941,6 @@ table.recs td.who .star{ color:var(--gold); margin-right:3px; }
     </section>
 
     <button class="next float" id="btnNext" hidden>다음 라운드 &nbsp;· &nbsp;ENTER</button>
-
-  </section>
-
-  <!-- 화면 3 : 포인트 정보 -->
-  <section class="screen" data-step="3">
-
-    <aside class="panel point-panel">
-      <span class="lab">POINT INFO</span>
-      <div class="mini">
-        <div class="mini-row"><span class="lab">BEST</span><b id="uiBest">—</b></div>
-        <div class="mini-row"><span class="lab">THIS RUN</span><b id="uiRunPeak">1,000</b></div>
-        <div class="recbar" id="uiRecWrap" hidden>
-          <span class="rbar"><i id="uiRecFill"></i></span>
-          <b id="uiRecPct">0%</b>
-        </div>
-      </div>
-    </aside>
-
-    <button class="next" id="btnGoBet">다음 베팅으로 &nbsp;· &nbsp;계속</button>
 
   </section>
 
@@ -1040,24 +1014,17 @@ table.recs td.who .star{ color:var(--gold); margin-right:3px; }
   document.querySelectorAll('.screen').forEach(function(el){
     screens[el.getAttribute('data-step')] = el;
   });
-  var dealerPane = document.getElementById('dealerPane');
   function showStep(step){
     Object.keys(screens).forEach(function(k){
       screens[k].classList.toggle('active', k === String(step));
     });
-    if(dealerPane){
-      var big = (String(step) === '3');
-      dealerPane.classList.toggle('big', big);
-      dealerPane.open = big;
-    }
   }
   function on(id, fn){
     var el = document.getElementById(id);
     if(el) el.addEventListener('click', fn);
   }
   on('btnConfirmBet', function(){ showStep(2); });
-  on('btnNext',       function(){ showStep(3); });
-  on('btnGoBet',      function(){ showStep(1); });
+  on('btnNext',       function(){ showStep(1); });
   on('btnIntroGo',    function(){ showStep(1); });
   on('btnRestart',    function(){ showStep(1); });
 })();
