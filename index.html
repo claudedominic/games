@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Games</title>
+<style>
+  :root{
+    --ink:#1a1e24; --muted:#697382; --bg:#f7f8fa; --card:#ffffff; --rule:#e6e9ed; --accent:#1c5f54;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --ink:#eef1f4; --muted:#8b95a3; --bg:#0f1216; --card:#171b21; --rule:#2a303a; --accent:#6fc0ae; }
+  }
+  *{box-sizing:border-box;}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:"Segoe UI", system-ui, -apple-system, sans-serif;
+    margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;
+    padding:20px;
+  }
+  .wrap{ max-width:420px; width:100%; text-align:center; }
+  h1{ font-size:1.4rem; margin:0 0 32px; letter-spacing:-0.01em; }
+  .modes{ display:grid; gap:14px; }
+  .mode{
+    display:block; background:var(--card); border:1px solid var(--rule); border-radius:14px;
+    padding:24px; font-size:1.15rem; font-weight:600;
+    color:var(--ink); text-decoration:none;
+    transition:transform .15s ease, box-shadow .15s ease, color .15s ease;
+  }
+  .mode:hover{ transform:translateY(-2px); box-shadow:0 8px 24px rgba(0,0,0,.08); color:var(--accent); }
+  .mode span{ display:block; font-size:0.78rem; font-weight:400; color:var(--muted); margin-top:6px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Games — self-made html games</h1>
+  <div class="modes">
+    <a class="mode" href="rps-game.html">fun mode<span>가위바위보 대결장</span></a>
+    <a class="mode" href="rps-casino.html">casino mode<span>가위바위보 카지노</span></a>
+  </div>
+</div>
+</body>
+</html>
